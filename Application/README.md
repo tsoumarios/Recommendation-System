@@ -1,16 +1,33 @@
-# Project requirements
+# Betting Recommendation System
+## Project requirements
 Python version: 3.12
 
-# Project files
+## Database
+MongoDB
+- **db_name**: bets_db
+- **collections**:
+    - bets
+    - user_profiles   
+
+### Project files
 - main.py - API
-- clustering.py - Clustering code
-- merge_json.py - Functions to merge json datasets
-- uploaded_data.json - Dataset
-- user_profiles.json - Contains user profiles, created from clustering and will used for generate recommendations
+- connection.py - Connect with MongoDB
+- clustering.py - Clustering model
+- data_statistics.py - Culculate statistics for the dataset
+- preprocessing.py - Perform preprossecing to the dataset
+- Controllers
+    - bet_controller.py - handles all functionality to interact with the bets like: 
+        - upload_dataset(bets)
+        - recommend_bets (for a userid)
+        - recommend_bets_for_all_users
+        - delete_bets_in_period
+    - user_profile_controller.py
+        - upload_user_profiles (the result of the clustering)
 - requirements.txt - All the dependencies that are necesary for the project
 - readme.txt - Documendation of the project
+- uploaded_data.json - Sample file for demonstration (Contains user profiles, created from clustering and used for generate recommendations)
 
-# Dependencies in the requirements.txt 
+### Dependencies in the requirements.txt 
 - fastapi
 - uvicorn
 - pandas
@@ -20,12 +37,13 @@ Python version: 3.12
 - typing
 - scikit-learn
 - datetime
+- pymongo
 
-# Commands to execute
+### Commands to execute
 - pip install -r requirements.txt
 - python -m uvicorn main:app --reload
 
-# API 
+### API 
 - /upload_json - Post route to upload new dataset. Supports only .json format.
     If there is not dataset (uploaded_data.json), after uploading the new one it will saved in a file named uploaded_data.json.
     Otherwise, it will merge the old and the new dataset and it will save the merged one in the uploaded_data.json file. 
